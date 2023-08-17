@@ -4,7 +4,7 @@ import {TouchableOpacity, ScrollView, Text, View, SafeAreaView } from 'react-nat
 import { fetchDiscoverMovies } from '../service/fetchApiService';
 import LoadingComponent from '../components/Loading';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline'
-import { styles, theme } from '../themes/RootColor';
+import { styles } from '../themes/RootColor';
 import DiscoverMovie from '../components/DiscoverMovie';
 
 export default function DiscoverMoviesScreen() {
