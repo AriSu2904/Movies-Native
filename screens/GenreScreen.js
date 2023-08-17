@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../themes/RootColor';
 import { useNavigation } from '@react-navigation/native';
-import { ChevronDoubleDownIcon, ChevronLeftIcon } from 'react-native-heroicons/outline';
+import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import GenreList from '../components/GenreList';
+import { fetchDiscoverMovies, fetchMoviesGenre } from '../service/fetchApiService';
+import LoadingComponent from '../components/Loading';
 
 
-export default function GenreScreen(){
-    const [genres, setGenres] = useState([])
+
+export default function GenreScreen() {
     const [loading, setLoading] = useState(true)
+    const [genres, setGenres] = useState([])
+    const [movies, setMovies] = useState([])
     const navigator = useNavigation()
+
+    const getGenreMovies = async () => {
+      const data = await fetchMoviesGenre()
+      if(data) setGenres(data)
+
+      setLoading(false)
+    }
+
+    useEffect(() => {
+      getGenreMovies();
+    }, [])
 
   return (
     <ScrollView contentContainerStyle={{paddingBottom: 20}} className="flex-1 bg-neutral-900">
       
       {/* TOP AREA */}
       <View className="w-full">
-        <SafeAreaView className="z-20 w-full flex-row justify-between items-center px-4 mt-3">
+        <SafeAreaView className="absolute z-20 w-full flex-row justify-between items-center px-4 mt-5">
             <TouchableOpacity style={styles.background} className="rounded-xl p-1" onPress={() => navigator.goBack()}>
                 <ChevronLeftIcon size={28} strokeWidth={2.5} color="black" />
             </TouchableOpacity>
@@ -27,12 +42,19 @@ export default function GenreScreen(){
                 </Text>
         </SafeAreaView>
         {/* TOP AREA */}
-        <View>
-
-          <GenreList />
-
-        </View>
       </View>
+        
+        <View>
+        {
+          loading ? ( <LoadingComponent />
+          ) : (
+            <SafeAreaView>
+              <GenreList data={genres} />
+            </SafeAreaView>
+          )
+        }
+        </View>
+
 
     </ScrollView>
   );
