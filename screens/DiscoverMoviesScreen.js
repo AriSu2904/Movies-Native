@@ -14,16 +14,22 @@ export default function DiscoverMoviesScreen() {
   const [loading, setLoading] = useState(true);
   const navigator = useNavigation()
 
+
+  const selectedMovie = (movieId) => {
+      navigator.navigate("MovieDetail", movieId)
+  }
+
+  useEffect(() => {
+    getMoviesByGenre(genreId);
+  }, [genreId]);
+
   const getMoviesByGenre = async (genreId) => {
     const data = await fetchDiscoverMovies(genreId);
     if (data) setMovies(data);
 
     setLoading(false);
-  };
+     };
 
-  useEffect(() => {
-    getMoviesByGenre(genreId);
-  }, [genreId]);
 
   const renderMovies = () => {
     if (loading) {
@@ -45,7 +51,7 @@ export default function DiscoverMoviesScreen() {
                 {/* TOP AREA */}
 
             <SafeAreaView>
-              <DiscoverMovie movies={movies}  />
+              <DiscoverMovie movies={movies} onSelectedMovie={selectedMovie} />
             </SafeAreaView>
         </View>
 
