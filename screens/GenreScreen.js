@@ -5,7 +5,7 @@ import { styles } from '../themes/RootColor';
 import { useNavigation } from '@react-navigation/native';
 import { ChevronLeftIcon } from 'react-native-heroicons/outline';
 import GenreList from '../components/GenreList';
-import { fetchDiscoverMovies, fetchMoviesGenre } from '../service/fetchApiService';
+import { fetchMoviesGenre } from '../service/fetchApiService';
 import LoadingComponent from '../components/Loading';
 
 
@@ -13,7 +13,6 @@ import LoadingComponent from '../components/Loading';
 export default function GenreScreen() {
     const [loading, setLoading] = useState(true)
     const [genres, setGenres] = useState([])
-    const [movies, setMovies] = useState([])
     const navigator = useNavigation()
 
     const getGenreMovies = async () => {
@@ -21,6 +20,10 @@ export default function GenreScreen() {
       if(data) setGenres(data)
 
       setLoading(false)
+    }
+
+    const selectedGenre = (genreId) => {
+      navigator.navigate('DiscoverMovie', {genreId})
     }
 
     useEffect(() => {
@@ -49,7 +52,7 @@ export default function GenreScreen() {
           loading ? ( <LoadingComponent />
           ) : (
             <SafeAreaView>
-              <GenreList data={genres} />
+              <GenreList data={genres} onSelectGenre={selectedGenre}/>
             </SafeAreaView>
           )
         }

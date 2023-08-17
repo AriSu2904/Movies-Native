@@ -29,3 +29,9 @@ export const fetchMoviesGenre = async () => {
     return moviesGenre.genres;
   };
 
+export const fetchDiscoverMovies = async (genreId) => {
+    const discoverMovies = await apiCall(baseEndPoint('/discover/movie'), { with_genres: genreId });
+    console.log(discoverMovies.results)
+    return discoverMovies.results;
+};
+
