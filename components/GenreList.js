@@ -1,21 +1,19 @@
 import React from "react";
-import { Text, TouchableOpacity, SafeAreaView, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const GenreList = ({ data, onSelectGenre }) => {
   return (
-    <SafeAreaView>
-      <View className="flex justify-between p-8 mt-12">
+      <View className="flex justify-between px-7 my-1 pb-3">
         {data.map((item) => (
           <TouchableOpacity
             key={item.id}
             onPress={() => onSelectGenre(item.id)}
-            className="bg-slate-500 p-3 my-2.5 rounded-md"
+            className="bg-indigo-300 p-3 my-2 rounded-xl"
           >
-            <Text className="text-white text-center text-xl">{item.name}</Text>
+            <Text className="text-center font-semibold text-lg">{item.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
-    </SafeAreaView>
   );
 };
 

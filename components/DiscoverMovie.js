@@ -1,12 +1,13 @@
 import React from "react";
 import { SafeAreaView, Image, Text, TouchableOpacity } from "react-native";
 import { BASE_IMG500_URL } from "../constant/api";
+import { styles } from "../themes/RootColor";
 
 export default function DiscoverMovie({ movies, onSelectedMovie }) {
   console.log(movies.id);
 
   return (
-    <SafeAreaView className="p-8 mt-14">
+    <SafeAreaView className="px-8">
       {movies.map((item) => (
         <TouchableOpacity
           key={item.id}
@@ -21,6 +22,7 @@ export default function DiscoverMovie({ movies, onSelectedMovie }) {
           <Text className="mt-2 text-center text-white text-lg">
             {item.title}
           </Text>
+          <Text className="text-center italic" style={styles.text}>Click For Detail</Text>
         </TouchableOpacity>
       ))}
     </SafeAreaView>

@@ -10,15 +10,12 @@ export default function HomeScreen() {
 
   return (
     <View className="flex-1 bg-neutral-900">
-      <SafeAreaView className="mb-3">
-        <View className="flex-row justify-between items-center mx-4">
-          <Text className="text-white text-2xl font-bold">
+      <SafeAreaView>
+        <View className="items-center mx-4 mt-12">
+          <Text className="text-white text-4xl font-bold">
             <Text style={styles.text}>M</Text>
             ovies
           </Text>
-          <TouchableOpacity>
-            <MagnifyingGlassIcon size={25} strokeWidth={2} color="white" />
-          </TouchableOpacity>
         </View>
       </SafeAreaView>
 
@@ -33,7 +30,7 @@ export default function HomeScreen() {
             <Text style={styles.text}> Genre</Text>
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity className="pb-5 pt-5">
+        <TouchableOpacity className="pb-5">
           <Text className="text-white bg-neutral-700 text-xl w-full text-center px-7 py-2 rounded-full font-semibold">
             <Text style={styles.text2}>Trending </Text>
             Movies

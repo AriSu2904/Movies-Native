@@ -41,36 +41,33 @@ export default function DiscoverMoviesScreen() {
     }
 
     return (
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 20 }}
-        className="flex-1 bg-neutral-900"
-      >
-        <View className="w-full">
-          <SafeAreaView className="absolute z-20 w-full flex-row items-center px-4 mt-10">
-            <TouchableOpacity
-              style={styles.background}
-              className="rounded-xl mr-2"
-              onPress={() => navigator.goBack()}
-            >
-              <ChevronLeftIcon size={28} strokeWidth={2.5} color="black" />
-            </TouchableOpacity>
-            <Text
-              className="text-2xl font-semibold text-white"
-              onPress={() => navigator.goBack()}
-            >
-              Bac
-            </Text>
-            <Text className="text-2xl font-bold" style={styles.text}>
-              k
-            </Text>
-          </SafeAreaView>
-          {/* TOP AREA */}
+      
+      <View className="flex-1 bg-zinc-900">
+        <SafeAreaView className="flex-row items-center m-5 pt-6">
+          <TouchableOpacity
+            style={styles.background}
+            className="rounded-xl p-1"
+            onPress={() => navigator.goBack()}
+          >
+            <ChevronLeftIcon size={28} strokeWidth={3} color="black" />
+          </TouchableOpacity>
+          <Text className="text-white text-2xl font-semibold ml-2">
+                Ba
+            <Text style={styles.text}>ck</Text>
+          </Text>
+        </SafeAreaView>
 
-          <SafeAreaView>
-            <DiscoverMovie movies={movies} onSelectedMovie={selectedMovie} />
-          </SafeAreaView>
-        </View>
-      </ScrollView>
+
+        {
+          loading ? ( <LoadingComponent /> ) : (
+            <ScrollView showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: 5}}>
+              <DiscoverMovie movies={movies} onSelectedMovie={selectedMovie}/>
+            </ScrollView>
+          )
+        }
+
+    </View>
     );
   };
 
