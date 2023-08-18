@@ -31,7 +31,9 @@ export const fetchMoviesGenre = async () => {
 
 export const fetchDiscoverMovies = async (genreId) => {
     const discoverMovies = await apiCall(baseEndPoint('/discover/movie'), { with_genres: genreId });
-    console.log(discoverMovies.results)
     return discoverMovies.results;
 };
-
+export const fetchMovieDetails = async (movieId) => {
+  movieDetails = await apiCall(baseEndPoint(`/movie/${movieId}`));
+  return movieDetails
+};

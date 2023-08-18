@@ -4,6 +4,7 @@ import { BASE_IMG500_URL } from '../constant/api';
 
 
 export default function DiscoverMovie({movies, onSelectedMovie}){
+  console.log(movies.id);
 
   return (
     <SafeAreaView className="p-8 mt-14">

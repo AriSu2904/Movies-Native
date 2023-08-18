@@ -1,57 +1,62 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useEffect } from "react";
-import { Dimensions, Image, ScrollView, View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"
+import { useEffect, useState } from "react";
+import {
+  ScrollView,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { styles } from "../themes/RootColor";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
+import { fetchMovieDetails } from "../service/fetchApiService";
+import LoadingComponent from "../components/Loading"
+import MovieDetail  from "../components/MovieDetail"
 
-const {width, height} = Dimensions.get('window')
 
 export default function MovieDetailScreen() {
+  const navigation = useNavigation();
+  const { params: movieId } = useRoute();
+  const [movieDetail, setMovieDetail] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    const navigation = useNavigation()
-    const {params: item} = useRoute()
-    
-    useEffect(() => {
+  const getMovieDetails = async (movieId) => {
+    const result = await fetchMovieDetails(movieId);
+    if (result) setMovieDetail(result);
+    setLoading(false);
+  };
 
-    }, [item])
+  useEffect(() => {
+    getMovieDetails(movieId);
+  }, [movieId]);
 
-    return (
-    
-        <ScrollView contentContainerStyle={{paddingBottom: 20}}
-        className="flex-1 bg-neutral-900">
+  return (
+    <ScrollView
+      contentContainerStyle={{ paddingBottom: 20 }}
+      className="flex-1 bg-neutral-900">
+      <View className="w-full">
+        <SafeAreaView
+          className={
+            "absolute z-20 w-full flex-row justify-between items-center px-4 mt-7"
+          }>
+          <TouchableOpacity
+            style={styles.background}
+            className="rounded-xl p-1"
+            onPress={() => navigation.goBack()}
+          >
+            <ChevronLeftIcon size="28" strokeWidth={2.5} color="black" />
+          </TouchableOpacity>
+        </SafeAreaView>
+        
+      </View>
 
-            <View className="w-full">
-                <SafeAreaView className={"absolute z-20 w-full flex-row justify-between items-center px-4 mt-7"}>
-                <TouchableOpacity style={styles.background} className="rounded-xl p-1" onPress={()=> navigation.goBack()}>
-                    <ChevronLeftIcon size="28" strokeWidth={2.5} color="black" />
-                </TouchableOpacity>
-                </SafeAreaView>
-            <View>
-                <Image source={require('../assets/images/icon.png')}
-                style={{width: width, height: height*0.6}}/>
+      {
+        loading? (
+          <LoadingComponent />
+        ):(
+          <MovieDetail data={movieDetail}/>
+        )
+      }
 
-                <LinearGradient
-                    colors={['transparent', 'rgba(23,23,23,0.9)', 'rgba(23,23,23,1)']}
-                    style={{width, height:height*0.57}}
-                    start={{x: 0.3, y:0}}
-                    end={{x: 0.3, y: 1}}
-                    className="absolute bottom-0"
-                />
-            </View>
-            </View>
-
-            <View style={{marginTop: -(height*0.11)}} className="pt-4">
-                <Text className="text-white text-center text-2xl font-bold tracking-wider">
-                     Ant Man and The Wasp: Quantumania
-                </Text>
-                <Text className="text-white text-center tracking-wider">
-                     Ant Man and The Wasp: Quantumania
-                </Text>
-            </View>
-
-        </ScrollView>
-    )
-    
-
+    </ScrollView>
+  );
 }
