@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { API_TOKEN, BASE_URL } from '../constant/api';
+import axios from "axios";
+import { API_TOKEN, BASE_URL } from "../constant/api";
 
 const baseEndPoint = (path) => {
   return `${BASE_URL}${path}`;
@@ -7,7 +7,7 @@ const baseEndPoint = (path) => {
 
 const apiCall = async (endpoint, params) => {
   const options = {
-    method: 'GET',
+    method: "GET",
     url: endpoint,
     params: params ? params : {},
     headers: {
@@ -25,15 +25,25 @@ const apiCall = async (endpoint, params) => {
 };
 
 export const fetchMoviesGenre = async () => {
-    const moviesGenre = await apiCall(baseEndPoint('/genre/movie/list'), { language: 'en' });
-    return moviesGenre.genres;
-  };
+  const moviesGenre = await apiCall(baseEndPoint("/genre/movie/list"), {
+    language: "en",
+  });
+  return moviesGenre.genres;
+};
 
 export const fetchDiscoverMovies = async (genreId) => {
-    const discoverMovies = await apiCall(baseEndPoint('/discover/movie'), { with_genres: genreId });
-    return discoverMovies.results;
+  const discoverMovies = await apiCall(baseEndPoint("/discover/movie"), {
+    with_genres: genreId,
+  });
+  return discoverMovies.results;
 };
 export const fetchMovieDetails = async (movieId) => {
-  movieDetails = await apiCall(baseEndPoint(`/movie/${movieId}`));
-  return movieDetails
+  const movieDetails = await apiCall(baseEndPoint(`/movie/${movieId}`));
+  return movieDetails;
+};
+
+export const fetchTrailerMovie = async (movieId) => {
+  const trailerMovie = await apiCall(baseEndPoint(`/movie/${movieId}/videos`));
+  const officialTrailer = trailerMovie.results.findLast((res) => res.official === true);
+  return officialTrailer;
 };

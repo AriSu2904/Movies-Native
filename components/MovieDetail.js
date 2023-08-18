@@ -1,15 +1,10 @@
-import {
-  Image,
-  View,
-  Text,
-  Dimensions,
-} from "react-native";
+import { Image, View, Text, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BASE_IMG500_URL } from "../constant/api";
+import YoutubeTrailer from "./MovieTrailer";
 
-
-const {width, height} = Dimensions.get("window")
-export default function MovieDetail({data}) {
+const { width, height } = Dimensions.get("window");
+export default function MovieDetail({ data, trailer }) {
   return (
     <View>
       <View>
@@ -60,15 +55,17 @@ export default function MovieDetail({data}) {
         </Text>
 
         {/* Trailer */}
-        <View>
-          <Text className="text-white text-lg mx-4 mb-4 mt-2">
-            Trailer Youtube
+
+        <Text className="text-white text-lg mx-4 mb-1 mt-2">
+            Trailer Movie
           </Text>
-        </View>
+          <View className="mx-4 justify-center align">
+            <YoutubeTrailer movie={trailer} />
+          </View>
 
         {/* Reviews */}
         <View>
-          <Text className="text-white text-lg mx-4 mb-4 mt-2">
+          <Text className="text-white text-lg mx-4 mb-4">
             Reviews and Comments
           </Text>
         </View>
