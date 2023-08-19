@@ -18,22 +18,41 @@ export default function DiscoverMoviesScreen() {
   const { genreId } = route.params;
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1)
   const navigator = useNavigation();
 
   const selectedMovie = (movieId) => {
     navigator.navigate("MovieDetail", movieId);
   };
 
-  useEffect(() => {
-    getMoviesByGenre(genreId);
-  }, [genreId]);
-
-  const getMoviesByGenre = async (genreId) => {
-    const data = await fetchDiscoverMovies(genreId);
-    if (data) setMovies(data);
+  const getMoviesByGenre = async (genreId, page) => {
+    const data = await fetchDiscoverMovies(genreId, page);
+    if (data) {
+      if(page === 1){
+        setMovies(data);
+      }
+      setMovies((prevMovies) => [...prevMovies, ...data])
+    }
 
     setLoading(false);
   };
+
+
+  const handleScroll = (event) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    const isCloseToBottom =
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 40;
+  
+    if (isCloseToBottom) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+  
+
+  useEffect(() => {
+    getMoviesByGenre(genreId, page);
+  }, [genreId, page]);
+
 
   const renderMovies = () => {
     if (loading) {
@@ -61,7 +80,9 @@ export default function DiscoverMoviesScreen() {
         {
           loading ? ( <LoadingComponent /> ) : (
             <ScrollView showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: 5}}>
+            contentContainerStyle={{paddingBottom: 5}}
+            onScroll={handleScroll}
+            >
               <DiscoverMovie movies={movies} onSelectedMovie={selectedMovie}/>
             </ScrollView>
           )

@@ -4,13 +4,12 @@ import { BASE_IMG500_URL } from "../constant/api";
 import { styles } from "../themes/RootColor";
 
 export default function DiscoverMovie({ movies, onSelectedMovie }) {
-  console.log(movies.id);
 
   return (
     <SafeAreaView className="px-8">
-      {movies.map((item) => (
+      {movies.map((item, idx) => (
         <TouchableOpacity
-          key={item.id}
+          key={`${item.id}-${idx}`}
           className="mb-10"
           onPress={() => onSelectedMovie(item.id)}
         >

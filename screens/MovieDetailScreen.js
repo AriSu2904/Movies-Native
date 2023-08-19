@@ -1,21 +1,28 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { ScrollView, View, SafeAreaView, TouchableOpacity, Text } from "react-native";
+import {
+  ScrollView,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { styles } from "../themes/RootColor";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import {
   fetchMovieDetails,
+  fetchReviewMovies,
   fetchTrailerMovie,
 } from "../service/fetchApiService";
 import LoadingComponent from "../components/Loading";
 import MovieDetail from "../components/MovieDetail";
-import YoutubeTrailer from "../components/MovieTrailer";
 
 export default function MovieDetailScreen() {
   const navigation = useNavigation();
   const { params: movieId } = useRoute();
   const [movieDetail, setMovieDetail] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getMovieDetails = async (movieId) => {
@@ -29,9 +36,16 @@ export default function MovieDetailScreen() {
     if (result) setMovieTrailer(result);
   };
 
+  const getMovieReviews = async (movieId) => {
+    const result = await fetchReviewMovies(movieId);
+    if (result) setReviews(result)
+  };
+
+
   useEffect(() => {
     getMovieDetails(movieId);
     getMovieTrailer(movieId);
+    getMovieReviews(movieId);
   }, [movieId]);
 
   return (
@@ -59,7 +73,11 @@ export default function MovieDetailScreen() {
         <LoadingComponent />
       ) : (
         <ScrollView>
-          <MovieDetail data={movieDetail} trailer={movieTrailer}/>
+          <MovieDetail
+            data={movieDetail}
+            trailer={movieTrailer}
+            users={reviews}
+          />
         </ScrollView>
       )}
     </View>

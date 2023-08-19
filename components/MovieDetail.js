@@ -1,11 +1,11 @@
-import { Image, View, Text, Dimensions } from "react-native";
+import { Image, View, Text, Dimensions, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BASE_IMG500_URL } from "../constant/api";
-import YoutubeTrailer from "./MovieTrailer";
+import MovieTrailer from "./MovieTrailer";
+import ReviewList from "./ReviewList";
 
 const { width, height } = Dimensions.get("window");
-export default function MovieDetail({ data, trailer }) {
-
+export default function MovieDetail({ data, trailer, users }) {
   const getYear = (dateString) => {
     const date = new Date(dateString);
     return date.getFullYear();
@@ -13,7 +13,7 @@ export default function MovieDetail({ data, trailer }) {
 
   return (
     <View>
-      <View>
+      <SafeAreaView>
         <Image
           source={{ uri: `${BASE_IMG500_URL}/${data.poster_path}` }}
           style={{ width: width, height: height * 0.6 }}
@@ -26,16 +26,16 @@ export default function MovieDetail({ data, trailer }) {
           end={{ x: 0.3, y: 1 }}
           className="absolute bottom-0"
         />
-      </View>
+      </SafeAreaView>
 
-      <View style={{ marginTop: -(height * 0.09) }}>
+      <SafeAreaView style={{ marginTop: -(height * 0.09) }}>
         <Text className="text-white text-center text-2xl font-bold tracking-wider">
           {data.title}
         </Text>
 
         {/* Tag Line */}
         <Text className="text-white text-center tracking-wider italic">
-          "{data.tagline? `${data.tagline}` : "Movies"}"
+          "{data.tagline ? `${data.tagline}` : "Movies"}"
         </Text>
 
         <View className="mt-3">
@@ -49,33 +49,25 @@ export default function MovieDetail({ data, trailer }) {
             {data.genres &&
               data.genres.map((genre, idx) => (
                 <Text key={idx} className="text-white">
-                  {genre.name} {idx<data.genres.length - 1 ? " •" : ""}
+                  {genre.name} {idx < data.genres.length - 1 ? " •" : ""}
                 </Text>
               ))}
           </View>
-        </View>
-
-        {/* Description */}
-        <Text className="text-neutral-400 mx-4 mt-3 tracking-wide">
+          <Text className="text-neutral-400 mx-4 mt-3 tracking-wide">
           {data.overview}
         </Text>
+        </View>
+        </SafeAreaView>
 
         {/* Trailer */}
-
-        <Text className="text-white text-lg mx-4 mb-1 mt-2">
-            Trailer Movie
-          </Text>
-          <View className="mx-4 justify-center align">
-            <YoutubeTrailer movie={trailer} />
-          </View>
+        <View>
+        <Text className="text-white text-lg mx-4 mb-1 mt-2">Trailer Movie</Text>
+        <MovieTrailer data={trailer} />
 
         {/* Reviews */}
-        <View>
-          <Text className="text-white text-lg mx-4 mb-4">
-            Reviews and Comments
-          </Text>
+        <Text className="text-white text-lg mx-4 mb-4">Reviews and Comments</Text>
+        <ReviewList data={users} />
         </View>
-      </View>
     </View>
   );
 }

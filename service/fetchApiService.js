@@ -31,19 +31,31 @@ export const fetchMoviesGenre = async () => {
   return moviesGenre.genres;
 };
 
-export const fetchDiscoverMovies = async (genreId) => {
+export const fetchDiscoverMovies = async (genreId, page) => {
   const discoverMovies = await apiCall(baseEndPoint("/discover/movie"), {
     with_genres: genreId,
+    page: page
   });
   return discoverMovies.results;
 };
 export const fetchMovieDetails = async (movieId) => {
-  const movieDetails = await apiCall(baseEndPoint(`/movie/${movieId}`));
+  const movieDetails = await apiCall(baseEndPoint(`/movie/${movieId}`), {
+    language: "en-US"
+  });
   return movieDetails;
 };
 
 export const fetchTrailerMovie = async (movieId) => {
-  const trailerMovie = await apiCall(baseEndPoint(`/movie/${movieId}/videos`));
+  const trailerMovie = await apiCall(baseEndPoint(`/movie/${movieId}/videos`), {
+    language: "en-US"
+  });
   const officialTrailer = trailerMovie.results.findLast((res) => res.official === true);
   return officialTrailer;
 };
+
+export const fetchReviewMovies = async (movieId) => {
+  const movieReviews = await apiCall(baseEndPoint(`/movie/${movieId}/reviews`), {
+    language: "en-US"
+  })
+  return movieReviews.results
+}

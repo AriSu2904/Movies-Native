@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-const GenreList = ({ data, onSelectGenre }) => {
+export default function GenreList ({ data, onSelectGenre }) {
   return (
       <View className="flex justify-between px-7 my-1 pb-3">
         {data.map((item) => (
@@ -17,4 +17,3 @@ const GenreList = ({ data, onSelectGenre }) => {
   );
 };
 
-export default GenreList;
