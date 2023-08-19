@@ -29,32 +29,31 @@ export default function GenreScreen() {
   }, []);
 
   return (
-
     <View className="flex-1 bg-zinc-900">
-        <SafeAreaView className="flex-row justify-between items-center m-5">
-          <TouchableOpacity
-            style={styles.background}
-            className="rounded-xl p-1"
-            onPress={() => navigator.goBack()}
-          >
-            <ChevronLeftIcon size={28} strokeWidth={3} color="black" />
-          </TouchableOpacity>
-          <Text className="text-white text-2xl font-semibold pt-2">
-            <Text style={styles.text}>G</Text>
-            enres
-          </Text>
-        </SafeAreaView>
+      <SafeAreaView className="flex-row justify-between items-center m-5">
+        <TouchableOpacity
+          style={styles.background}
+          className="rounded-xl p-1"
+          onPress={() => navigator.goBack()}
+        >
+          <ChevronLeftIcon size={28} strokeWidth={3} color="black" />
+        </TouchableOpacity>
+        <Text className="text-white text-2xl font-semibold pt-2">
+          <Text style={styles.text}>G</Text>
+          enres
+        </Text>
+      </SafeAreaView>
 
-
-        {
-          loading ? ( <LoadingComponent /> ) : (
-            <ScrollView showsVerticalScrollIndicator={false}
-            contentContainerStyle={{paddingBottom: 5}}>
-              <GenreList data={genres} onSelectGenre={selectedGenre}/>
-            </ScrollView>
-          )
-        }
-
+      {loading ? (
+        <LoadingComponent />
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 5 }}
+        >
+          <GenreList data={genres} onSelectGenre={selectedGenre} />
+        </ScrollView>
+      )}
     </View>
   );
 }

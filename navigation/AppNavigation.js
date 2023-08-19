@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import GenreScreen from "../screens/GenreScreen";
 import DiscoverMoviesScreen from "../screens/DiscoverMoviesScreen";
 import MovieDetailScreen from "../screens/MovieDetailScreen";
+import ReviewListScreen from "../screens/ReviewScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,11 @@ export default function AppNavigation() {
           name="MovieDetail"
           options={{ headerShown: false }}
           component={MovieDetailScreen}
+        />
+        <Stack.Screen
+          name="Reviews"
+          options={{ headerShown: false }}
+          component={ReviewListScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

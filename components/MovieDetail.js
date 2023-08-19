@@ -1,11 +1,21 @@
-import { Image, View, Text, Dimensions, SafeAreaView } from "react-native";
+import {
+  Image,
+  View,
+  Text,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BASE_IMG500_URL } from "../constant/api";
 import MovieTrailer from "./MovieTrailer";
-import ReviewList from "./ReviewList";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
-export default function MovieDetail({ data, trailer, users }) {
+export default function MovieDetail({ data, trailer }) {
+
+  const navigator = useNavigation()
+
   const getYear = (dateString) => {
     const date = new Date(dateString);
     return date.getFullYear();
@@ -54,20 +64,24 @@ export default function MovieDetail({ data, trailer, users }) {
               ))}
           </View>
           <Text className="text-neutral-400 mx-4 mt-3 tracking-wide">
-          {data.overview}
-        </Text>
+            {data.overview}
+          </Text>
         </View>
-        </SafeAreaView>
+      </SafeAreaView>
 
-        {/* Trailer */}
-        <View>
+      {/* Trailer */}
+      <View>
         <Text className="text-white text-lg mx-4 mb-1 mt-2">Trailer Movie</Text>
         <MovieTrailer data={trailer} />
+      </View>
 
-        {/* Reviews */}
-        <Text className="text-white text-lg mx-4 mb-4">Reviews and Comments</Text>
-        <ReviewList data={users} />
-        </View>
+      <View className="px-5 my-5">
+        <TouchableOpacity onPress={() => navigator.navigate('Reviews', data.id)}>
+          <Text className="text-center text-xl font-semibold mx-4 mb-1 mt-2 bg-indigo-300 p-3 my-2 rounded-xl">
+            Click Here To Show All Comments
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

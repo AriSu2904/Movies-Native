@@ -22,7 +22,6 @@ export default function MovieDetailScreen() {
   const { params: movieId } = useRoute();
   const [movieDetail, setMovieDetail] = useState([]);
   const [movieTrailer, setMovieTrailer] = useState([]);
-  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const getMovieDetails = async (movieId) => {
@@ -36,16 +35,10 @@ export default function MovieDetailScreen() {
     if (result) setMovieTrailer(result);
   };
 
-  const getMovieReviews = async (movieId) => {
-    const result = await fetchReviewMovies(movieId);
-    if (result) setReviews(result)
-  };
-
 
   useEffect(() => {
     getMovieDetails(movieId);
     getMovieTrailer(movieId);
-    getMovieReviews(movieId);
   }, [movieId]);
 
   return (
@@ -64,7 +57,7 @@ export default function MovieDetailScreen() {
             className="rounded-xl p-1"
             onPress={() => navigation.goBack()}
           >
-            <ChevronLeftIcon size={30} strokeWidth={3} color="black" />
+            <ChevronLeftIcon size={35} strokeWidth={3} color="black" />
           </TouchableOpacity>
         </SafeAreaView>
       </View>
@@ -72,13 +65,11 @@ export default function MovieDetailScreen() {
       {loading ? (
         <LoadingComponent />
       ) : (
-        <ScrollView>
-          <MovieDetail
-            data={movieDetail}
-            trailer={movieTrailer}
-            users={reviews}
-          />
-        </ScrollView>
+        <View>
+          <ScrollView>
+            <MovieDetail data={movieDetail} trailer={movieTrailer} />
+          </ScrollView>
+          </View>
       )}
     </View>
   );
