@@ -31,8 +31,6 @@ Read user reviews and ratings for a movie to get insights into other viewers' op
 
 ## Screenshots
 
-## Screenshots
-
 Home Screen            |  Genres Screen            |  Discover Movies Screen
 :-------------------------:|:-------------------------:|:-------------------------:
 ![Home Screen](assets/images/Screenshot_Home.png)  |  ![Genres Page](assets/images/Screenshot_genres.png)  |  ![Discover Movies Page](assets/images/Screenshot_discover_movies.png)
