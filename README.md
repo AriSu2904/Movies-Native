@@ -13,7 +13,7 @@
 
 Browse through a clickable list of official movie genres to discover movies based on specific genres.
 
-### 2. Discover Movies by Genre
+### 2. Discover Movies by Genre (Endless Scrolling)
 
 Explore a collection of movies categorized by genres. Click on a genre to view a list of movies associated with that genre.
 
@@ -25,7 +25,7 @@ View primary information about a selected movie, including its title, release da
 
 Watch the YouTube trailer for a selected movie directly within the app.
 
-### 5. User Reviews
+### 5. User Reviews (Endless Scrolling)
 
 Read user reviews and ratings for a movie to get insights into other viewers' opinions.
 
