@@ -6,7 +6,7 @@ export default function MovieTrailer({ data }) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView >
       <YoutubeIframe height={220} play={playing} videoId={data.key} />
     </SafeAreaView>
   );

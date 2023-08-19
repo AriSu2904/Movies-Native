@@ -10,13 +10,15 @@ import LoadingComponent from "../components/Loading";
 export default function ReviewListScreen() {
   const navigator = useNavigation();
   const { params: movieId } = useRoute();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
 
   const getMovieReviews = async (movieId) => {
+    setLoading(true)
     const result = await fetchReviewMovies(movieId);
     if (result) setReviews(result);
-    setLoading(false);
+
+    setLoading(false)
   };
 
   useEffect(() => {

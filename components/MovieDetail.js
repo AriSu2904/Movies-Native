@@ -70,7 +70,7 @@ export default function MovieDetail({ data, trailer }) {
       </SafeAreaView>
 
       {/* Trailer */}
-      <View>
+      <View className="mt-5 mx-4">
         <Text className="text-white text-lg mx-4 mb-1 mt-2">Trailer Movie</Text>
         <MovieTrailer data={trailer} />
       </View>

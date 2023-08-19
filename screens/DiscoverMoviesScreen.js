@@ -61,7 +61,7 @@ export default function DiscoverMoviesScreen() {
 
     return (
       
-      <View className="flex-1 bg-zinc-900">
+      <View className="flex-1 bg-slate-900">
         <SafeAreaView className="flex-row items-center m-5 pt-6">
           <TouchableOpacity
             style={styles.background}

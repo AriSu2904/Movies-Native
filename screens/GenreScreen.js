@@ -29,7 +29,7 @@ export default function GenreScreen() {
   }, []);
 
   return (
-    <View className="flex-1 bg-zinc-900">
+    <View className="flex-1 bg-slate-900">
       <SafeAreaView className="flex-row justify-between items-center m-5">
         <TouchableOpacity
           style={styles.background}

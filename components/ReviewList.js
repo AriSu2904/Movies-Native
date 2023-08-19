@@ -34,7 +34,7 @@ export default function ReviewList({ data }) {
         return (
           <View className="pt-2 p-3 mx-5" key={`${item.id}-${idx}`}>
             <Text className="font-semibold text-lg">{item.author}</Text>
-            <Text>{item.content}</Text>
+            <Text style={{marginVertical: 10}}>{item.content}</Text>
             <Text>{formatDateTime(item.created_at)}</Text>
           </View>
         );

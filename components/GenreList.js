@@ -8,7 +8,7 @@ export default function GenreList ({ data, onSelectGenre }) {
           <TouchableOpacity
             key={item.id}
             onPress={() => onSelectGenre(item.id)}
-            className="bg-indigo-300 p-3 my-2 rounded-xl"
+            className="bg-indigo-400 p-3 my-2 rounded-xl"
           >
             <Text className="text-center font-semibold text-lg">{item.name}</Text>
           </TouchableOpacity>
